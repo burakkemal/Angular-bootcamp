@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router:Router
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.createLoginForm();
@@ -56,9 +56,16 @@ export class LoginComponent implements OnInit {
     if (this.formGroup.invalid) {
       return;
     }
-    this.authService.login(this.formGroup.value).subscribe((response) => {
-      console.log(response);
-      this.router.navigate(['/']);
-    });
+    this.authService.login(this.formGroup.value).subscribe(
+      (response) => {
+        console.log(response);
+        localStorage.setItem('access_token', response.token);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        // console.log(error);
+        // console.log(error['error']['message']);
+      }
+    );
   }
 }
