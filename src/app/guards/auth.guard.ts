@@ -11,6 +11,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   if (authService.isAuthenticated()) return true;
 
   toast.info('Önce login olmalısınız...');
-  router.navigateByUrl('/login');
+  router.navigateByUrl('auth/login');
   return true;
 };
